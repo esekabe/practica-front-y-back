@@ -1,0 +1,12 @@
+$kind: http-request
+name: PATCH Update Tasks
+url: http://localhost:3000/tasks/4
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \    \"status\":\"in_progress\"\r
+
+    }"
+order: 3507714881641632

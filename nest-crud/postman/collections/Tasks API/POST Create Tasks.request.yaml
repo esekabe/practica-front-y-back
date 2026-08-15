@@ -1,0 +1,14 @@
+$kind: http-request
+name: POST Create Tasks
+url: http://localhost:3000/tasks
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"title\": \"Mi primera tarea desde Postman\",\r
+
+    \    \"description\": \"Creada en el módulo 9\"\r
+
+    }"
+order: 2657903982220029

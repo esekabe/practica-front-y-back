@@ -1,0 +1,5 @@
+$kind: http-request
+name: DELETE Tasks
+url: http://localhost:3000/tasks/4
+method: DELETE
+order: 3622564214191003
