@@ -1,4 +1,6 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller, Get, Post, Patch, Delete, Param, Body, Query, ParseIntPipe 
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -13,8 +15,13 @@ export class TasksController {
   @ApiOperation({ summary: 'Obtener todas las tareas' })
   @Get()
   findAll() {
-    console.log('--- log desde la feature ---');
     return this.tasksService.findAll();
+  }
+
+  @ApiOperation({ summary: 'Buscar tareas por texto en el título' })
+  @Get('search')
+  search(@Query('q') query: string) {
+    return this.tasksService.search(query ?? '');
   }
 
   @ApiOperation({ summary: 'Obtener una tarea por ID' })
