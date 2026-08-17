@@ -12,8 +12,30 @@ export class TasksService {
     private taskRepository: Repository<Task>,
   ) {}
 
-  findAll(): Promise<Task[]> {
-    return this.taskRepository.find();
+  async findAll(page = 1, limit = 10): Promise<{
+    data: Task[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  }> {
+    const safePage = Math.max(1, Number(page) || 1);
+    const safeLimit = Math.max(1, Number(limit) || 10);
+    const skip = (safePage - 1) * safeLimit;
+
+    const [data, total] = await this.taskRepository.findAndCount({
+      skip,
+      take: safeLimit,
+      order: { createdAt: 'DESC' },
+    });
+
+    return {
+      data,
+      total,
+      page: safePage,
+      limit: safeLimit,
+      totalPages: Math.ceil(total / safeLimit) || 1,
+    };
   }
 
   async search(query: string): Promise<Task[]> {

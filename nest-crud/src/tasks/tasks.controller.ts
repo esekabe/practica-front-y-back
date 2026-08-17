@@ -14,8 +14,11 @@ export class TasksController {
 
   @ApiOperation({ summary: 'Obtener todas las tareas' })
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  findAll(
+    @Query('page', ParseIntPipe) page = 1,
+    @Query('limit', ParseIntPipe) limit = 10,
+  ) {
+    return this.tasksService.findAll(page, limit);
   }
 
   @ApiOperation({ summary: 'Buscar tareas por texto en el título' })
