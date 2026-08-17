@@ -45,4 +45,9 @@ export class TasksService {
     const task = await this.findOne(id);
     await this.taskRepository.remove(task);
   }
+
+  // Método para contar tarea por status
+  async countByStatus(status: string): Promise<number> {
+    return this.taskRepository.count({ where: { status } });
+  }
 }

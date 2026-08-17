@@ -7,6 +7,12 @@ export enum TaskStatus {
   DONE = 'done',
 }
 
+export enum TaskPriority {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high',
+}
+
 export class CreateTaskDto {
   @ApiProperty({
     description: 'Título de la tarea',
@@ -14,7 +20,7 @@ export class CreateTaskDto {
   })
   @IsString()
   @IsNotEmpty()
-  @MaxLength(100)
+  @MaxLength(50)
   title: string;
 
   @ApiPropertyOptional({
@@ -34,4 +40,14 @@ export class CreateTaskDto {
   @IsEnum(TaskStatus)
   @IsOptional()
   status?: TaskStatus;
+
+  @ApiPropertyOptional({
+    description: 'Prioridad de la tarea',
+    enum: TaskPriority,
+    example: TaskPriority.MEDIUM,
+    default: TaskPriority.MEDIUM,
+  })
+  @IsEnum(TaskPriority)
+  @IsOptional()
+  priority?: TaskPriority;
 }
